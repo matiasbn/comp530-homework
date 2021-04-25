@@ -6,6 +6,10 @@ fn main() {
         1 => question1(args[2].parse::<i128>().unwrap()),
         2 => question2(args[2].parse::<i128>().unwrap()),
         3 => question3(args[2].parse::<i128>().unwrap()),
+        4 => question4(
+            args[2].parse::<i128>().unwrap(),
+            args[3].parse::<i128>().unwrap(),
+        ),
         _ => println!("enter a correct parameter"),
     }
 }
@@ -52,4 +56,16 @@ fn question3(number: i128) {
         current_number = current_number / prime_factor;
     }
     println!("{:?}", factors);
+}
+
+// Euclidean algorithm
+fn question4(number1: i128, number2: i128) {
+    let mut x: i128 = number1;
+    let mut y: i128 = number2;
+    while y != 0 {
+        let r = x % y;
+        x = y;
+        y = r;
+    }
+    println!("{}", x)
 }
