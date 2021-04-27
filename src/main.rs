@@ -10,6 +10,10 @@ fn main() {
             args[2].parse::<i128>().unwrap(),
             args[3].parse::<i128>().unwrap(),
         ),
+        5 => question5(
+            args[2].parse::<i128>().unwrap(),
+            args[3].parse::<i128>().unwrap(),
+        ),
         _ => println!("enter a correct parameter"),
     }
 }
@@ -68,4 +72,36 @@ fn question4(number1: i128, number2: i128) {
         y = r;
     }
     println!("{}", x)
+}
+
+fn extended_euclidean_algorithm(mut number1: i128, mut number2: i128) -> (i128, i128, i128) {
+    let (mut a0, mut a1, mut b0, mut b1) = (1, 0, 0, 1);
+
+    while number2 != 0 {
+        let (q, r) = (number1 / number2, number1 % number2);
+        let (a2, b2) = (a0 - q * a1, b0 - q * b1);
+
+        number1 = number2;
+        number2 = r;
+        a0 = a1;
+        a1 = a2;
+        b0 = b1;
+        b1 = b2;
+    }
+    (number1, a0, b0)
+}
+
+fn question5(number1: i128, number2: i128) {
+    let (gcd, bezout1, bezout2) = extended_euclidean_algorithm(number1, number2);
+    println!(
+        "{} * {} + {} * {} = {}",
+        number1, bezout1, number2, bezout2, gcd
+    );
+    println!(
+        "{} * {} mod {} = {}",
+        number1,
+        bezout1,
+        number2,
+        number1 * bezout1 % number2
+    );
 }
